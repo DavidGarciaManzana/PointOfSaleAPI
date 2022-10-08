@@ -11,6 +11,12 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
+builder.Services.AddScoped<IOrderItemService, OrderItemService>();
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IInventoryService, InventoryService>();
+builder.Services.AddScoped<IWarehouseService, WarehouseService>();
+builder.Services.AddScoped<ILocationService, LocationService>();
+builder.Services.AddScoped<ICountryService, CountryService>();
 
 builder.Services.AddSqlServer<PointOfSaleContext>(builder.Configuration.GetConnectionString("DefaultConnection"));
 

@@ -9,5 +9,6 @@
         public DateTime OrderDate { get; set; }
         public virtual CustomerModel CustomerModels { get; set; }
         public virtual EmployeeModel EmployeeModels { get; set; }
+        public virtual ICollection<OrderItemModel> OrderItemModels { get; set; }
     }
 }
