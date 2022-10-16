@@ -14,6 +14,9 @@ namespace PointOfSaleAPI.Context
         public DbSet<WarehouseModel> WarehouseModels { get; set; }
         public DbSet<LocationModel> LocationModels { get; set; }
         public DbSet<CountryModel> CountryModels { get; set; }
+        public DbSet<PruebaModel> PruebaModels { get; set; }
+
+
 
         public PointOfSaleContext(DbContextOptions<PointOfSaleContext> options) : base(options) { }  
         protected override void OnModelCreating (ModelBuilder modelBuilderParameter)
@@ -36,6 +39,7 @@ namespace PointOfSaleAPI.Context
                 orderModelParameter.HasOne(x => x.EmployeeModels).WithMany(x => x.OrderModels).HasForeignKey(x => x.SalesManId);
                 orderModelParameter.Property (x => x.Status).IsRequired().HasMaxLength(50);
                 orderModelParameter.Property (x => x.OrderDate);
+                orderModelParameter.Property (x => x.GrandTotal).IsRequired();
             }); 
             modelBuilderParameter.Entity<EmployeeModel>(orderModelParameter =>
             {
@@ -59,6 +63,7 @@ namespace PointOfSaleAPI.Context
                 orderItemModelParameter.HasOne(x => x.ProductModels).WithMany(x => x.OrderItemModels).HasForeignKey(x => x.ProductId);
                 orderItemModelParameter.Property(x => x.Quantity).IsRequired();
                 orderItemModelParameter.Property(x => x.UnitPrice).IsRequired();
+                orderItemModelParameter.Property(x => x.TotalPrice);
           
             });
             modelBuilderParameter.Entity<ProductModel>(productModelParameter =>
@@ -112,5 +117,13 @@ namespace PointOfSaleAPI.Context
 
                 countryModelParameter.Property(x => x.CountryName).HasMaxLength(50);
                });
+            
+            modelBuilderParameter.Entity<PruebaModel>(pruebaModelParameter =>
+            {
+                pruebaModelParameter.HasNoKey();
+                pruebaModelParameter.Property(x => x.Name);
+                pruebaModelParameter.Property(x => x.Status);
+               }); 
+
         }
 }}

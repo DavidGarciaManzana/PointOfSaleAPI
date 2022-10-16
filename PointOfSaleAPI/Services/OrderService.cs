@@ -32,6 +32,7 @@ namespace PointOfSaleAPI.Services
                 actualOrder.Status = orderParameter.Status;
                 actualOrder.SalesManId = orderParameter.SalesManId;
                 actualOrder.OrderDate = orderParameter.OrderDate;
+                actualOrder.GrandTotal = orderParameter.GrandTotal;
 
                 await context.SaveChangesAsync();
             }

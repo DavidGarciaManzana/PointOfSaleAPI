@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\PointOfSaleAPI\Models\CountryModel.cs" Link="Models\CountryModel.cs" />
+    <Compile Include="..\PointOfSaleAPI\Models\CustomerModel.cs" Link="Models\CustomerModel.cs" />
+    <Compile Include="..\PointOfSaleAPI\Models\EmployeeModel.cs" Link="Models\EmployeeModel.cs" />
+    <Compile Include="..\PointOfSaleAPI\Models\InventoryModel.cs" Link="Models\InventoryModel.cs" />
+    <Compile Include="..\PointOfSaleAPI\Models\LocationModel.cs" Link="Models\LocationModel.cs" />
+    <Compile Include="..\PointOfSaleAPI\Models\OrderItemModel.cs" Link="Models\OrderItemModel.cs" />
+    <Compile Include="..\PointOfSaleAPI\Models\OrderModel.cs" Link="Models\OrderModel.cs" />
+    <Compile Include="..\PointOfSaleAPI\Models\ProductModel.cs" Link="Models\ProductModel.cs" />
+    <Compile Include="..\PointOfSaleAPI\Models\WarehouseModel.cs" Link="Models\WarehouseModel.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+
+</Project>

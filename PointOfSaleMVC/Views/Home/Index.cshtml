@@ -1,0 +1,66 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@{
+    DateTime Today = DateTime.Now;
+    string User = "User";
+}
+
+<div class="container-card">
+    @if(@Today.ToString("tt").Contains("a. m."))
+    {
+        <h2 class="display-4">Good morning! @User</h2>
+    }
+    else if(@Today.ToString("tt").Contains("p. m.") && Int16.Parse(@Today.ToString("hh"))  < 5)
+    {
+        <h2 class="display-4">Good afternoon! @User</h2>
+    }
+    else if(@Today.ToString("tt").Contains("p. m.") && Int16.Parse(@Today.ToString("hh"))  > 5 && Int16.Parse(@Today.ToString("hh"))  < 8)
+    {
+        <h2 class="display-4">Good evening! @User</h2>
+    }
+    else if(@Today.ToString("tt").Contains("p. m.") && Int16.Parse(@Today.ToString("hh"))  > 8)
+    {
+        <h2 class="display-4">Good night! @User</h2>
+    }
+    </div>
+<div class="container">
+    <div class="row my-2">
+        <div class="col-md-6 py-1">
+            <div class="card">
+                <div class="card-body">
+                    <canvas id="chBar"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 py-1 ">
+            <div class="card">
+                <div class="card-body">
+                    <canvas id="chLine"></canvas>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    <div class="row py-2">
+        <div class="col-md-6 py-1 row-cols-2">
+            <div class="card top-50 start-50 translate-middle">
+                <div class="card-body">
+                    <canvas id="chDonut1"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 row-cols-2 py-1">
+            <div class="card top-50 start-50 translate-middle">
+                <div class="card-body">
+                    <canvas id="chDonut2"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js" integrity="sha512-ElRFoEQdI5Ht6kZvyzXhYG9NqjtkmlkfYk0wr6wHxU9JEHakS7UJZNeml5ALk+8IKlU6jDgMabC3vkumRokgJA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+
