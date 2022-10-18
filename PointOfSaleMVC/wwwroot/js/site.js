@@ -4,21 +4,16 @@ let donutOptions = {
     legend: { position: 'bottom', padding: 5, labels: { pointStyle: 'circle', usePointStyle: true } }
 };
 
-function createBarTable(values) {
-    //console.log(values.length)
+function createBarTable(yearValues) {
     let months = ["January", "February", "March", "April", "May", "June",
         "July", "August", "September", "October", "November", "December"];
-
-    let labels = [];
-    for (i = 0; i < values.length; i++) {
-        labels.push(months[i])
-    }
+   
     
 
     const info = {
-        labels: labels,
+        labels: months.slice(0, months.indexOf(new Date().toLocaleString('en-US', { month: 'long' }))+1),
         datasets: [{
-            data: values,
+            data: yearValues,
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(255, 159, 64, 0.2)',
@@ -61,7 +56,7 @@ function createBarTable(values) {
                 },
                 title: {
                     display: true,
-                    text: 'Total ' + new Date().getFullYear()+ ' sales'
+                    text: 'Total ' + new Date().getFullYear() + ' sales'
                 }
             },
             scales: {
@@ -82,16 +77,26 @@ function createBarTable(values) {
 }
 
 
-function createLineTable() {
+function createLineTable(monthValues) {
+
+    for (let index = 0; index < monthValues.length; index++) {
+        if (monthValues[index] === 0) {
+            monthValues[index] = NaN;
+            
+        }
+    }
+    let days = ["1", "2", "3", "4", "5", "6",
+        "7", "8", "9", "10", "11", "12",
+        "13", "14", "15", "16", "17", "18",
+        "19", "20", "21", "22", "23", "24",
+        "25", "26", "27", "28", "29", "30",
+        "31"]
 
     var chLine = document.getElementById("chLine");
     var chartData = {
-        labels: ["1", "2", "3", "4", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13",
-            "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27",
-            "28", "29", "30", "31"],
+        labels: days.slice(0, new Date().getDate()),
         datasets: [{
-            label: 'My First Dataset',
-            data: [65, 59, 80, 81, 56, 55, 40],
+            data: monthValues,
             fill: false,
             borderColor: 'rgb(255, 99, 132)',
             tension: 0.1
@@ -108,7 +113,7 @@ function createLineTable() {
                     },
                     title: {
                         display: true,
-                        text: 'This month sales'
+                        text: new Date().toLocaleString('en-US', { month: 'long' }) + ' sales'
                     }
                 },
                 scales: {
@@ -192,95 +197,29 @@ var urlorders = "https://localhost:7037/api/order";
 fetch(urlorders, { method: "GET" })
     .then(resp => resp.json())
     .then(data => {
-        let values = [];
-        // console.log(data)
-        let totalJanuary = null
-        let totalFebruary = null
-        let totalMarch = null
-        let totalApril = null
-        let totalMay = null
-        let totalJune = null
-        let totalJuly = null
-        let totalAugust = null
-        let totalSeptember = null
-        let totalOctober = null
-        let totalNovember = null
-        let totalDecember = null
+        let monthValues = [0,0,0,0,0,0,0,0,0,0,0,0];
+
+        let dayValues = [0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0];
+        console.log(data)
         data.map((item) => {
             let date = new Date(item.orderDate)
-         //   console.log(date.getFullYear())
+
             if (item.status == "Completed" && date.getFullYear() == new Date().getFullYear()) {
-                console.log(item.orderDate.slice(5, 7))
-                
-                if (item.orderDate.slice(5, 7) == 1) {
-                    totalJanuary += item.grandTotal
-                } else if (item.orderDate.slice(5, 7) == 2) {
-                    totalFebruary += item.grandTotal
-                } else if (item.orderDate.slice(5, 7) == 3) {
-                    totalMarch += item.grandTotal
-                } else if (item.orderDate.slice(5, 7) == 4) {
-                    totalApril += item.grandTotal
-                } else if (item.orderDate.slice(5, 7) == 5) {
-                    totalMay += item.grandTotal
-                } else if (item.orderDate.slice(5, 7) == 6) {
-                    totalJune += item.grandTotal
-                } else if (item.orderDate.slice(5, 7) == 7) {
-                    totalJuly += item.grandTotal
-                } else if (item.orderDate.slice(5, 7) == 8) {
-                    totalAugust += item.grandTotal
-                } else if (item.orderDate.slice(5, 7) == 9) {
-                    totalSeptember += item.grandTotal
-                } else if (item.orderDate.slice(5, 7) == 10) {
-                    totalOctober += item.grandTotal
-                } else if (item.orderDate.slice(5, 7) == 11) {
-                    totalNovember += item.grandTotal
-                }
-                }else if (item.orderDate.slice(5, 7) == 12) {
-                    totalDecember += item.grandTotal
-                } 
+                monthValues[date.getMonth()] += item.grandTotal
+            }
+            
+            if (item.status == "Completed" && date.getFullYear() == new Date().getFullYear() && date.getMonth() == new Date().getMonth()) {
+                dayValues[date.getDate()-1] += item.grandTotal
+            }
         })
-        if (totalJanuary) {
-            values.push(totalJanuary)
-        }
-        if (totalFebruary) {
-            values.push(totalFebruary)
-        }
-        if (totalMarch) {
-            values.push(totalMarch)
-        }
-        if (totalApril) {
-            values.push(totalApril)
-        }
-        if (totalMay) {
-            values.push(totalMay)
-        }
-        if (totalJune) {
-            values.push(totalJune)
-        }
-        if (totalJuly) {
-            values.push(totalJuly)
-        }
-        if (totalAugust) {
-            values.push(totalAugust)
-        }
-        if (totalSeptember) {
-            values.push(totalSeptember)
-        }
-        if (totalOctober) {
-            values.push(totalOctober)
-        }
-        if (totalNovember) {
-            values.push(totalNovember)
-        }
-        if (totalDecember) {
-            values.push(totalDecember)
-        }
         
-        
+        createBarTable(monthValues);
+        createLineTable(dayValues);
 
-
-        createBarTable(values);
-        createLineTable();
         createPieTable();
         createDoughnutTable();
     })
