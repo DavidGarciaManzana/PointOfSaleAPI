@@ -14,7 +14,8 @@ namespace PointOfSaleAPI.Context
         public DbSet<WarehouseModel> WarehouseModels { get; set; }
         public DbSet<LocationModel> LocationModels { get; set; }
         public DbSet<CountryModel> CountryModels { get; set; }
-        public DbSet<PruebaModel> PruebaModels { get; set; }
+        public DbSet<GetCountrySalesModel> GetCountrySalesModels { get; set; }
+        public DbSet<GetCitySalesModel> getCitySalesModels { get; set; }
 
 
 
@@ -118,11 +119,17 @@ namespace PointOfSaleAPI.Context
                 countryModelParameter.Property(x => x.CountryName).HasMaxLength(50);
                });
             
-            modelBuilderParameter.Entity<PruebaModel>(pruebaModelParameter =>
+            modelBuilderParameter.Entity<GetCountrySalesModel>(countryParameter =>
             {
-                pruebaModelParameter.HasNoKey();
-                pruebaModelParameter.Property(x => x.Name);
-                pruebaModelParameter.Property(x => x.Status);
+                countryParameter.HasNoKey();
+                countryParameter.Property(x => x.Country);
+                countryParameter.Property(x => x.Sales);
+               });  
+            modelBuilderParameter.Entity<GetCitySalesModel>(cityParameter =>
+            {
+                cityParameter.HasNoKey();
+                cityParameter.Property(x => x.City);
+                cityParameter.Property(x => x.Sales);
                }); 
 
         }

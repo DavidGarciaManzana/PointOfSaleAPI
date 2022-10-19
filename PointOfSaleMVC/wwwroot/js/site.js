@@ -1,14 +1,11 @@
 ﻿let colors = ['#007bff', '#28a745', '#333333', '#c3e6cb', '#dc3545', '#6c757d'];
-let donutOptions = {
-    cutoutPercentage: 85,
-    legend: { position: 'bottom', padding: 5, labels: { pointStyle: 'circle', usePointStyle: true } }
-};
+
 
 function createBarTable(yearValues) {
     let months = ["January", "February", "March", "April", "May", "June",
         "July", "August", "September", "October", "November", "December"];
    
-    
+   
 
     const info = {
         labels: months.slice(0, months.indexOf(new Date().toLocaleString('en-US', { month: 'long' }))+1),
@@ -131,17 +128,19 @@ function createLineTable(monthValues) {
 }
 
 
-function createPieTable() {
+function createPieTable(data) {
+    let countries = []
+    let sales  = []
+
+    data.map((item) => {
+        countries.push(item.country)
+        sales.push(item.sales)
+    })
 
     var chDonutData1 = {
-        labels: [
-            'Red',
-            'Blue',
-            'Yellow'
-        ],
+        labels: countries,
         datasets: [{
-            label: 'My First Dataset',
-            data: [300, 50, 100],
+            data: sales,
             backgroundColor: [
                 'rgb(255, 99, 132)',
                 'rgb(54, 162, 235)',
@@ -150,6 +149,22 @@ function createPieTable() {
             hoverOffset: 4
         }]
     };
+    let donutOptions = {
+        cutoutPercentage: 85,
+        legend: {
+            position: 'bottom', padding: 5, labels: { pointStyle: 'circle', usePointStyle: true }
+        },
+        plugins: {
+            legend: {
+                position: 'top',
+            },
+            title: {
+                display: true,
+                text: new Date().getFullYear() + ' sales by Country'
+            }
+        }
+    };
+
     var chDonut1 = document.getElementById("chDonut1");
     if (chDonut1) {
         new Chart(chDonut1, {
@@ -162,16 +177,42 @@ function createPieTable() {
 
 }
 
-function createDoughnutTable() {
+function createDoughnutTable(data, bestSalesCountry) {
+    let cities = []
+    let sales = []
+    if (bestSalesCountry.country == "México") {
+        data.map((item) => {
+            if (item.city == "Zihuatanejo" || item.city == "Guadalajara" || item.city == "CDMX") {
+                cities.push(item.city)
+                sales.push(item.sales)
+            }
+        })
+    }
+    if (bestSalesCountry.country == "Canada") {
+        data.map((item) => {
+            if (item.city == "Montreal" || item.city == "Toronto" || item.city == "Vancouver") {
+                cities.push(item.city)
+                sales.push(item.sales)
+            }
+        })
+    }
+    if (bestSalesCountry.country == "USA") {
+        data.map((item) => {
+            if (item.city == "Boston" || item.city == "Chicago" || item.city == "New York") {
+                cities.push(item.city)
+                sales.push(item.sales)
+            }
+        })
+    }
+
+    
+
+
     var chDonutData2 = {
-        labels: [
-            'Red',
-            'Blue',
-            'Yellow'
-        ],
+        labels: cities,
         datasets: [{
             label: 'My First Dataset',
-            data: [300, 50, 100],
+            data: sales,
             backgroundColor: [
                 'rgb(255, 99, 132)',
                 'rgb(54, 162, 235)',
@@ -179,6 +220,22 @@ function createDoughnutTable() {
             ],
             hoverOffset: 4
         }]
+    };
+
+    let donutOptions = {
+        cutoutPercentage: 85,
+        legend: {
+            position: 'bottom', padding: 5, labels: { pointStyle: 'circle', usePointStyle: true }
+        },
+        plugins: {
+            legend: {
+                position: 'top',
+            },
+            title: {
+                display: true,
+                text: new Date().getFullYear() + ' sales by cities in the country with bigger sales'
+            }
+        }
     };
     var chDonut2 = document.getElementById("chDonut2");
     if (chDonut2) {
@@ -193,8 +250,8 @@ function createDoughnutTable() {
 
 
 
-var urlorders = "https://localhost:7037/api/order";
-fetch(urlorders, { method: "GET" })
+var urlOrders = "https://localhost:7037/api/order";
+fetch(urlOrders, { method: "GET" })
     .then(resp => resp.json())
     .then(data => {
         let monthValues = [0,0,0,0,0,0,0,0,0,0,0,0];
@@ -204,15 +261,15 @@ fetch(urlorders, { method: "GET" })
             0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0];
-        console.log(data)
+     
         data.map((item) => {
             let date = new Date(item.orderDate)
 
-            if (item.status == "Completed" && date.getFullYear() == new Date().getFullYear()) {
+            if (item.status == "Completed" && date.getFullYear() == new Date().getFullYear() && date <= new Date()) {
                 monthValues[date.getMonth()] += item.grandTotal
             }
-            
-            if (item.status == "Completed" && date.getFullYear() == new Date().getFullYear() && date.getMonth() == new Date().getMonth()) {
+
+            if (item.status == "Completed" && date.getFullYear() == new Date().getFullYear() && date.getMonth() == new Date().getMonth() && date <= new Date() ) {
                 dayValues[date.getDate()-1] += item.grandTotal
             }
         })
@@ -220,6 +277,25 @@ fetch(urlorders, { method: "GET" })
         createBarTable(monthValues);
         createLineTable(dayValues);
 
-        createPieTable();
-        createDoughnutTable();
+        
+        
+    })
+
+var urlGetCountrySales = "https://localhost:7037/api/GetCountrySales";
+fetch(urlGetCountrySales, { method: "GET" })
+    .then(resp => resp.json())
+    .then(data => {
+ 
+        createPieTable(data);
+        let bestSalesCountry = data.sort((a, b) => b.sales - a.sales)[0]
+        
+        var urlGetCountrySales = "https://localhost:7037/api/GetCitySales";
+        fetch(urlGetCountrySales, { method: "GET" })
+            .then(resp => resp.json())
+            .then(data => {
+                
+                createDoughnutTable(data, bestSalesCountry);
+
+            })
+
     })

@@ -17,7 +17,8 @@ builder.Services.AddScoped<IInventoryService, InventoryService>();
 builder.Services.AddScoped<IWarehouseService, WarehouseService>();
 builder.Services.AddScoped<ILocationService, LocationService>();
 builder.Services.AddScoped<ICountryService, CountryService>();
-builder.Services.AddScoped<IPruebaService, PruebaService>();
+builder.Services.AddScoped<IGetCountrySalesService, GetCountrySalesService>();
+builder.Services.AddScoped<IGetCitySalesService, GetCitySalesService>();
 
 builder.Services.AddSqlServer<PointOfSaleContext>(builder.Configuration.GetConnectionString("DefaultConnection"));
 

@@ -5,7 +5,7 @@ VisualStudioVersion = 17.2.32630.192
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PointOfSaleAPI", "PointOfSaleAPI\PointOfSaleAPI.csproj", "{A12AEE23-FDFE-4C79-BE11-17B3C18FA1B1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PointOfSaleMVC", "PointOfSaleMVC\PointOfSaleMVC.csproj", "{D06BE1D1-C290-4D4B-87ED-063606FE25B3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PointOfSaleMVC", "PointOfSaleMVC\PointOfSaleMVC.csproj", "{D06BE1D1-C290-4D4B-87ED-063606FE25B3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
