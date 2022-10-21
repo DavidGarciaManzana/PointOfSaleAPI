@@ -1,4 +1,29 @@
-﻿let colors = ['#007bff', '#28a745', '#333333', '#c3e6cb', '#dc3545', '#6c757d'];
+﻿let mantain = false;
+// Create a condition that targets viewports at least 768px wide
+const mediaQuery = window.matchMedia('(min-width: 768px)')
+
+
+function handleTabletChange(e) {
+    // Check if the media query is true
+    if (e.matches) {
+        // Then log the following message to the console
+        console.log('Media Query Matched!')
+        mantain = true
+        console.log(mantain)
+    } else {
+        mantain = false
+        console.log('kakakkaka', mantain)
+    }
+}
+
+
+// Register event listener
+mediaQuery.addListener(handleTabletChange)
+
+// Initial check
+handleTabletChange(mediaQuery)
+
+let colors = ['#007bff', '#28a745', '#333333', '#c3e6cb', '#dc3545', '#6c757d'];
 
 
 function createBarTable(yearValues) {
@@ -60,15 +85,19 @@ function createBarTable(yearValues) {
                 y: {
                     beginAtZero: true
                 }
-            }
+            },
+            
+            maintainAspectRatio: mantain
+           
         },
     };
     /* bar chart */
     var chBar = document.getElementById("chBar");
     if (chBar) {
-        new Chart(chBar,
+        let barchart = new Chart(chBar,
             config
         )
+     
     }
     
 }
@@ -121,7 +150,8 @@ function createLineTable(monthValues) {
                 legend: {
                     display: false
                 },
-                responsive: true
+                responsive: true,
+                maintainAspectRatio: mantain
             }
         });
     }
@@ -162,7 +192,8 @@ function createPieTable(data) {
                 display: true,
                 text: new Date().getFullYear() + ' sales by Country'
             }
-        }
+        },
+        maintainAspectRatio: mantain
     };
 
     var chDonut1 = document.getElementById("chDonut1");
@@ -235,7 +266,8 @@ function createDoughnutTable(data, bestSalesCountry) {
                 display: true,
                 text: new Date().getFullYear() + ' sales by cities in the country with bigger sales'
             }
-        }
+        },
+        maintainAspectRatio: mantain
     };
     var chDonut2 = document.getElementById("chDonut2");
     if (chDonut2) {

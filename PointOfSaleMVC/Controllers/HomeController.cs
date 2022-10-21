@@ -24,9 +24,28 @@ namespace PointOfSaleMVC.Controllers
         public IActionResult Privacy()
         {
             return View();
-        } public IActionResult Purchase()
+        } 
+        public async Task<IActionResult> Purchase()
         {
-            return View();
+            var url = "https://localhost:7037/api/";
+            var httpClient = new HttpClient();
+
+
+         //   _logger.LogWarning(url + "employee");
+            var json = await httpClient.GetStringAsync(url + "employee");
+            var employeeList = JsonConvert.DeserializeObject<List<EmployeeModel>>(json);
+            var json2 = await httpClient.GetStringAsync(url + "customer");
+            var customerList = JsonConvert.DeserializeObject<List<CustomerModel>>(json2);
+            List<EmployeeModel> listOfEmployees = new List<EmployeeModel>();
+            listOfEmployees = employeeList;
+
+            List<CustomerModel> listOfCustomers = new List<CustomerModel>();
+            listOfCustomers = customerList;
+
+            MultipleGetModel objViewModel = new MultipleGetModel();
+            objViewModel.MultipleEmployeeModel = listOfEmployees;
+            objViewModel.MultipleCustomerModel = listOfCustomers;
+            return View(objViewModel) ;
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

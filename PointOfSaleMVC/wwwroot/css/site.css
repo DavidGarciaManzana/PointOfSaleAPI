@@ -16,3 +16,35 @@ html {
 body {
   margin-bottom: 60px;
 }
+.purchase > div {
+    width: 2rem;
+    display: inline-block;
+    height: 5rem;
+}
+.purchase div.employees {
+    margin-right: 7rem;
+}
+.purchase div.customers {
+    margin-right: 3rem;
+}
+.purchase div.countries {
+    margin-right: 4rem;
+}
+.purchase div.cities {
+    margin-right: 6rem;
+}.purchase div.products {
+    margin-right: 10rem;
+}.purchase div.quantity {
+    margin-right: 4rem;
+}
+button {
+    display:block
+}
+
+@media only screen and (max-width: 768px) {
+    .barchart-card {
+        min-height: 250px;
+    }
+
+}
+
