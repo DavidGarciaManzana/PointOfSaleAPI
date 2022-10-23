@@ -19,6 +19,7 @@ builder.Services.AddScoped<ILocationService, LocationService>();
 builder.Services.AddScoped<ICountryService, CountryService>();
 builder.Services.AddScoped<IGetCountrySalesService, GetCountrySalesService>();
 builder.Services.AddScoped<IGetCitySalesService, GetCitySalesService>();
+builder.Services.AddScoped<IGetProductsByCityService, GetProductsByCityService>();
 
 builder.Services.AddSqlServer<PointOfSaleContext>(builder.Configuration.GetConnectionString("DefaultConnection"));
 

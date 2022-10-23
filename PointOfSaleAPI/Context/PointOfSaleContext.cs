@@ -16,6 +16,7 @@ namespace PointOfSaleAPI.Context
         public DbSet<CountryModel> CountryModels { get; set; }
         public DbSet<GetCountrySalesModel> GetCountrySalesModels { get; set; }
         public DbSet<GetCitySalesModel> getCitySalesModels { get; set; }
+        public DbSet<GetProductsByCityModel> getProductsByCityModels { get; set; }
 
 
 
@@ -130,6 +131,12 @@ namespace PointOfSaleAPI.Context
                 cityParameter.HasNoKey();
                 cityParameter.Property(x => x.City);
                 cityParameter.Property(x => x.Sales);
+               });  
+            modelBuilderParameter.Entity<GetProductsByCityModel>(productByCityParameter =>
+            {
+                productByCityParameter.HasNoKey();
+                productByCityParameter.Property(x => x.Product);
+                productByCityParameter.Property(x => x.City);
                }); 
 
         }

@@ -7,12 +7,12 @@ function handleTabletChange(e) {
     // Check if the media query is true
     if (e.matches) {
         // Then log the following message to the console
-        console.log('Media Query Matched!')
+
         mantain = true
-        console.log(mantain)
+        
     } else {
         mantain = false
-        console.log('kakakkaka', mantain)
+    
     }
 }
 

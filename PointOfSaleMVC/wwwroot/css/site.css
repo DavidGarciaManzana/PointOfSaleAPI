@@ -37,6 +37,9 @@ body {
 }.purchase div.quantity {
     margin-right: 4rem;
 }
+ .items {
+     margin-right:9rem;
+ }
 button {
     display:block
 }
