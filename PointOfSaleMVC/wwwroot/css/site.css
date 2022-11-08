@@ -50,4 +50,30 @@ button {
     }
 
 }
+.finalBasquetModal {
+    position: fixed;
+    height: 100vh;
+    width: 100%;
+    left: 0;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba( 255, 255, 255, 0.25 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 2.5px );
+    -webkit-backdrop-filter: blur( 2.5px );
+    border-radius: 10px;
+}
+    .finalBasquetModal > div {
+        width: 50%;
+        height: 50%;
+        background-color: white;
+        border: 2px solid black;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    }
+
 

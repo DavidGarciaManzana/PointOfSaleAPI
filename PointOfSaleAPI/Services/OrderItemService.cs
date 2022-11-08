@@ -32,7 +32,6 @@ namespace PointOfSaleAPI.Services
                 actualOrderItem.ProductId = orderItemParameter.ProductId;
                 actualOrderItem.Quantity = orderItemParameter.Quantity;
                 actualOrderItem.UnitPrice = orderItemParameter.UnitPrice;
-                actualOrderItem.TotalPrice = orderItemParameter.TotalPrice;
 
                 await context.SaveChangesAsync();
             }

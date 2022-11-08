@@ -65,7 +65,6 @@ namespace PointOfSaleAPI.Context
                 orderItemModelParameter.HasOne(x => x.ProductModels).WithMany(x => x.OrderItemModels).HasForeignKey(x => x.ProductId);
                 orderItemModelParameter.Property(x => x.Quantity).IsRequired();
                 orderItemModelParameter.Property(x => x.UnitPrice).IsRequired();
-                orderItemModelParameter.Property(x => x.TotalPrice);
           
             });
             modelBuilderParameter.Entity<ProductModel>(productModelParameter =>

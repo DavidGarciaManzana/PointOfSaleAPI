@@ -2,9 +2,23 @@ using Microsoft.EntityFrameworkCore;
 using PointOfSaleAPI.Context;
 using PointOfSaleAPI.Services;
 
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
 var builder = WebApplication.CreateBuilder(args);
 
+
+
+/*builder.Services.AddCors(options =>
+{
+    options.AddPolicy("Policy1",
+        policy =>
+        {
+            policy.WithOrigins("https://localhost:7210/",
+                                "http://www.contoso.com");
+        });
+
+});*/
+builder.Services.AddCors();
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
@@ -41,12 +55,19 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+//app.UseCors(MyAllowSpecificOrigins);
+app.UseCors(x => x
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .AllowCredentials()
+        //    .WithOrigins("https://localhost:7210") // Allow only this origin can also have multiple origins seperated with comma
+            .SetIsOriginAllowed(origin => true));// Allow any origin
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
 
 
 app.Run();

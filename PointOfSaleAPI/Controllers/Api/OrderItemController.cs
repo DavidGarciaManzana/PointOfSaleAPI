@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Mvc;
 using PointOfSaleAPI.Models;
 using PointOfSaleAPI.Services;
 namespace PointOfSaleAPI.Controllers.Api
@@ -16,11 +17,21 @@ namespace PointOfSaleAPI.Controllers.Api
         {
             return Ok(orderItemServiceParameter.Get());
         }
+        [EnableCors()]
         [HttpPost]
         public IActionResult Post([FromBody] OrderItemModel orderItemModelParameter)
         {
-            orderItemServiceParameter.Save(orderItemModelParameter);
-            return Ok();
+           
+            
+            try
+            {
+                orderItemServiceParameter.Save(orderItemModelParameter);
+                return Ok();
+            }
+            catch 
+            {
+                return BadRequest();
+            }
         }
         [HttpPut("{id}")]
         public IActionResult Put(int id, [FromBody] OrderItemModel orderItemModelParameter)
