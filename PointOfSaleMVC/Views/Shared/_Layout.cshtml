@@ -6,6 +6,7 @@
     <title>@ViewData["Title"] - PointOfSaleMVC</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/profile.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/PointOfSaleMVC.styles.css" asp-append-version="true" />
 </head>
 <body>
@@ -26,22 +27,14 @@
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Reports
+            Power BI
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#">Monthly report</a></li>
-            <li><a class="dropdown-item" href="#">Yearly report</a></li>
+            <li><a class="dropdown-item" href="/Home/PowerBi">Last year</a></li>
           </ul>
         </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            System & Information
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#">Log out</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">About the developer</a></li>
-          </ul>
+         <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/Home/Developer">About the Developer</a>
         </li>
       </ul>
       

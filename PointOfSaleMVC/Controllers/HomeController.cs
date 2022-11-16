@@ -48,6 +48,14 @@ namespace PointOfSaleMVC.Controllers
             //Retorno el modelo padre a la vista, al cual se accedera poniendo un punto despues del modelo (Model.MultipleCustomerModel)
             return View(multipleviewModel) ;
         }
+        public IActionResult PowerBi()
+        {
+            return View();
+        }
+        public IActionResult Developer()
+        {
+            return View();
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
